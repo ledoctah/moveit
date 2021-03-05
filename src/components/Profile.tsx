@@ -7,7 +7,7 @@ export function Profile(): JSX.Element {
 
   return (
     <div className={styles.profileContainer}>
-      <img src="http://github.com/ledoctah.png" alt="Matheus Ferreira" />
+      <img src="https://github.com/ledoctah.png" alt="Matheus Ferreira" />
       <div>
         <strong>Matheus Ferreira</strong>
         <p>
