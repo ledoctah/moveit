@@ -1,11 +1,9 @@
+import React from 'react';
+
 import '../styles/global.css';
 
-import { ChallengesProvider } from '../contexts/ChallengesContext';
-
-function MyApp({ Component, pageProps }) {
-  return (
-    <Component {...pageProps} />
-  );
+function MyApp({ Component, pageProps }): JSX.Element {
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
