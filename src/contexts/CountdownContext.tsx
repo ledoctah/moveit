@@ -29,7 +29,7 @@ export function CountdownProvider({
 }: CountdownContextProps): JSX.Element {
   const { startNewChallenge } = useContext(ChallengesContext);
 
-  const countdownTime = 0.1 * 60;
+  const countdownTime = 25 * 60;
 
   const [time, setTime] = useState(countdownTime);
   const [isActive, setIsActive] = useState(false);
