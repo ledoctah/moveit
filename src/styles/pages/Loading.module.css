@@ -1,0 +1,17 @@
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  background-color: var(--login-background);
+  background-image: url('/logo.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.loading p {
+  font-size: 4rem;
+  font-weight: 600;
+  color: var(--white);
+}

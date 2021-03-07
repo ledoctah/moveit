@@ -1,0 +1,140 @@
+.container {
+  display: flex;
+  background: var(--login-background);
+
+  width: 100%;
+  height: 100vh;
+
+  position: relative;
+}
+
+.container section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.container section:first-child > svg {
+  position: absolute;
+  width: 50%;
+
+  margin-left: -2rem;
+}
+
+#header-shape-gradient {
+  --color-stop: #f12c06;
+  --color-bot: #faed34;
+}
+
+.loginContainer {
+  margin-left: auto;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginContainer > div {
+  background-color: white;
+
+  padding: 2rem 3rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.01);
+
+  text-align: center;
+
+  border-radius: 5px;
+}
+
+.loginContainer > div > svg {
+  width: 21rem;
+}
+
+.loginContainer > div h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--title);
+
+  margin: 3rem 0;
+}
+
+.loginContainer > div p {
+  font-size: 1.2rem;
+}
+
+.loginOptions {
+  margin-top: 2rem;
+  display: flex;
+
+  justify-content: center;
+}
+
+.loginOption {
+  position: relative;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.loginOption + .loginOption {
+  margin-left: 2rem;
+}
+
+.loginOption > span {
+  padding: 0.5rem 1rem;
+  width: 10rem;
+
+  color: var(--title);
+  background-color: var(--light-color);
+
+  font-weight: 600;
+  border-radius: 5px;
+  position: absolute;
+  right: 50%;
+
+  display: none;
+
+  transform: translateX(50%);
+  top: 2.5rem;
+}
+
+.loginOption:hover > span {
+  display: initial;
+}
+
+.loginOption:hover > span::before {
+  content: '';
+
+  position: absolute;
+  top: -0.5rem;
+  right: 50%;
+  transform: translateX(50%);
+
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0.375rem 0.625rem 0.375rem;
+  border-color: transparent transparent var(--light-color) transparent;
+}
+
+@media(max-width: 1100px) {
+  .container {
+    background-image: url('/logo.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background-size: 800px 800px;
+  }
+
+  .container section:first-child {
+    display: none;
+  }
+
+  .loginOption:hover > span {
+    display: none;
+  }
+}
