@@ -1,17 +1,81 @@
+@keyframes updown {
+  0% {
+    transform: translateY(0rem);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
+  100% {
+    transform: translateY(0rem);
+  }
+}
+
+@keyframes loading-text {
+  0% {
+    transform: translateY(0rem);
+  }
+  30% {
+    transform: translateY(-2px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+  70% {
+    transform: translateY(-2px);
+  }
+  100% {
+    transform: translateY(0rem);
+  }
+}
+
 .loading {
+  position: relative;
   display: flex;
   align-items: center;
+  align-content: center;
   justify-content: center;
   height: 100vh;
 
   background-color: var(--login-background);
-  background-image: url('/logo.svg');
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
-.loading p {
-  font-size: 4rem;
+.loading svg:last-of-type {
+  font-size: 3.5rem;
   font-weight: 600;
   color: var(--white);
+  margin-right: 8rem;
+
+  animation: loading-text 3s ease infinite;
+}
+
+.loading svg:last-of-type * {
+  fill: var(--white);
+}
+
+.loading svg {
+  height: 80vh;
+  width: 90vw;
+}
+
+.loading svg path {
+  transition: all 0.5;
+}
+
+.loading svg path:first-of-type {
+  animation: updown 3s ease infinite;
+}
+
+.loading svg path:nth-child(3) {
+  animation: updown 3s 0.3s ease infinite;
+}
+
+.loading svg path:last-of-type {
+  animation: updown 3s 0.5s ease infinite;
+}
+
+@media(max-width:1100px) {
+  .loading svg:last-of-type {
+    position: absolute;
+    margin: 0;
+  }
 }

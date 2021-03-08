@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useRouter } from 'next/router';
 import React, { createContext, ReactNode, useEffect, useState } from 'react';
 import FirebaseService from '../services/FirebaseService';
@@ -10,6 +11,7 @@ interface IUser {
 
 interface IAuthContextData {
   isLogged: boolean;
+  isLogging: boolean;
   user: IUser;
   loginWithGithub: () => void;
   loginWithGoogle: () => void;
@@ -26,10 +28,15 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
   const router = useRouter();
 
   const [isLogged, setIsLogged] = useState(false);
+  const [isLogging, setIsLogging] = useState(false);
   const [user, setUser] = useState({} as IUser);
 
   useEffect(() => {
+    setIsLogging(true);
+
     FirebaseService.auth().onAuthStateChanged(response => {
+      setIsLogging(true);
+
       if (response) {
         setUser({
           name: response.displayName || 'Move.it',
@@ -38,7 +45,9 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
         });
 
         setIsLogged(true);
+        setIsLogging(false);
       } else {
+        setIsLogging(false);
         setUser({} as IUser);
         setIsLogged(false);
       }
@@ -49,14 +58,34 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
     const provider = new FirebaseService.auth.GithubAuthProvider();
 
     FirebaseService.auth()
-      .signInWithRedirect(provider)
+      .signInWithPopup(provider)
       .then(() => {
         router.push('/');
+      })
+      .catch(err => {
+        if (err.code === 'auth/account-exists-with-different-credential') {
+          alert('Você já está logado nesse email através do Google.');
+        } else {
+          alert('Ocorreu um erro ao efetuar a autenticação');
+        }
       });
   }
 
   function loginWithGoogle(): void {
-    setIsLogged(true);
+    const provider = new FirebaseService.auth.GoogleAuthProvider();
+
+    FirebaseService.auth()
+      .signInWithPopup(provider)
+      .then(() => {
+        router.push('/');
+      })
+      .catch(err => {
+        if (err.code === 'auth/account-exists-with-different-credential') {
+          alert('Você já está logado nesse email através do Github.');
+        } else {
+          alert('Ocorreu um erro ao efetuar a autenticação');
+        }
+      });
   }
 
   function logOut(): void {
@@ -66,7 +95,14 @@ export function AuthProvider({ children }: IAuthProviderProps): JSX.Element {
 
   return (
     <AuthContext.Provider
-      value={{ isLogged, user, loginWithGithub, loginWithGoogle, logOut }}
+      value={{
+        isLogged,
+        isLogging,
+        user,
+        loginWithGithub,
+        loginWithGoogle,
+        logOut,
+      }}
     >
       {children}
     </AuthContext.Provider>
